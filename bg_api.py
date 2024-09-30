@@ -55,6 +55,7 @@ def replace_background():
     # Update the workflow with input data
     try:
         workflow['555']['inputs']['text'] = prompt_style
+        workflow['4']['inputs']['text'] = prompt_main
         workflow['563']['inputs']['text'] = prompt_main
         workflow['204']['inputs']['prompt'] = classification_token
         workflow['625']['inputs']['image'] = image_base64
@@ -89,17 +90,27 @@ def replace_background():
         time.sleep(1)
 
     # After the while loop that waits for the image generation
-    output_node = '630'  # String node containing the base64 output
+    output_node = '636'  # Node containing the base64 output
     if output_node in history[prompt_id]['outputs']:
         output_data = history[prompt_id]['outputs'][output_node]
         if 'string' in output_data:
             base64_output = output_data['string']
+            
+            # Log the result (truncate base64 for readability)
+            print(f"Background replacement completed successfully.")
+            print(f"Prompt style: {prompt_style}")
+            print(f"Prompt main: {prompt_main}")
+            print(f"Classification token: {classification_token}")
+            print(f"Input image base64 (truncated): {image_base64[:20]}...")
+            print(f"Output image base64 (truncated): {base64_output[:20]}...")
+            
             return jsonify({
                 'success': True,
                 'image': base64_output
             })
 
     # If we couldn't find the image data
+    print("Failed to generate image. No output found in history.")
     return jsonify({
         'success': False,
         'error': 'Failed to generate image'
