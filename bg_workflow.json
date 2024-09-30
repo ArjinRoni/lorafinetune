@@ -1159,7 +1159,7 @@
   },
   "635": {
     "inputs": {
-      "filename_prefix": "BackgroundReplacer+seed",
+      "filename_prefix": "BackgroundReplacerplusseed",
       "images": [
         "597",
         0
@@ -1168,6 +1168,18 @@
     "class_type": "SaveImage",
     "_meta": {
       "title": "Save Image"
+    }
+  },
+  "636": {
+    "inputs": {
+      "image": [
+        "597",
+        0
+      ]
+    },
+    "class_type": "easy imageToBase64",
+    "_meta": {
+      "title": "Image To Base64"
     }
   }
 }
