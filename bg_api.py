@@ -51,21 +51,6 @@ def replace_background():
     random_seed = random.randint(0, 2**32 - 1)
     workflow['607']['inputs']['seed'] = random_seed
 
-    # Handle image input
-    if url:
-        try:
-            response = requests.get(url, verify=False)  # Disable SSL verification
-            response.raise_for_status()  # Raise an exception for bad status codes
-            image_data = response.content
-            image_name = 'input_image.png'
-            upload_result = upload_image(image_data, image_name)
-            if 'name' in upload_result:
-                workflow['156']['inputs']['image'] = upload_result['name']
-            else:
-                return jsonify({'error': 'Failed to upload image'}), 400
-        except requests.exceptions.RequestException as e:
-            return jsonify({'error': f'Failed to download image: {str(e)}'}), 400
-
     # Queue the prompt
     result = queue_prompt(workflow)
 
