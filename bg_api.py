@@ -6,6 +6,7 @@ import io
 from PIL import Image
 import random
 import urllib3
+import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__)
@@ -37,46 +38,66 @@ def replace_background():
     classification_token = data.get('classification_token', '')
     url = data.get('url', '')
 
+    if not url:
+        return jsonify({'error': 'URL is required'}), 400
+
     # Load the workflow
-    with open('bg_workflow.json', 'r') as f:
-        workflow = json.load(f)
+    try:
+        with open('bg_workflow.json', 'r') as f:
+            workflow = json.load(f)
+    except FileNotFoundError:
+        return jsonify({'error': 'Workflow file not found'}), 500
 
     # Update the prompts and URL in the workflow
     workflow['555']['inputs']['text'] = prompt_style
     workflow['563']['inputs']['text'] = prompt_main
     workflow['204']['inputs']['prompt'] = classification_token
-    workflow['621']['inputs']['url'] = url  # Update node 621 with the provided URL
+    workflow['623']['inputs']['image'] = url  # Update node 623 with the provided URL
 
     # Generate a random seed
     random_seed = random.randint(0, 2**32 - 1)
     workflow['607']['inputs']['seed'] = random_seed
 
     # Queue the prompt
-    result = queue_prompt(workflow)
+    try:
+        result = queue_prompt(workflow)
+    except requests.RequestException as e:
+        return jsonify({'error': f'Failed to queue prompt: {str(e)}'}), 500
 
     if 'error' in result:
         return jsonify({'error': result['error']}), 400
 
     prompt_id = result['prompt_id']
 
-    # Wait for the image to be generated
+    # Wait for the image to be generated (with timeout)
+    timeout = 300  # 5 minutes
+    start_time = time.time()
     while True:
-        response = requests.get(f"{COMFY_URL}/history/{prompt_id}")
-        history = response.json()
-        if prompt_id in history and len(history[prompt_id]['outputs']) > 0:
-            break
+        if time.time() - start_time > timeout:
+            return jsonify({'error': 'Image generation timed out'}), 504
+        try:
+            response = requests.get(f"{COMFY_URL}/history/{prompt_id}", timeout=10)
+            history = response.json()
+            if prompt_id in history and len(history[prompt_id]['outputs']) > 0:
+                break
+        except requests.RequestException as e:
+            return jsonify({'error': f'Failed to check history: {str(e)}'}), 500
+        time.sleep(1)
 
     # Get the output image
     output_node = '619'  # SaveImage node
     if output_node in history[prompt_id]['outputs']:
         output_images = history[prompt_id]['outputs'][output_node]['images']
         if output_images:
-            image_data = get_image(output_images[0]['filename'], output_images[0]['subfolder'], 'output')
-            image = Image.open(io.BytesIO(image_data))
-            buffered = io.BytesIO()
-            image.save(buffered, format="PNG")
-            img_str = base64.b64encode(buffered.getvalue()).decode()
-            return jsonify({'image': img_str})
+            try:
+                image_data = get_image(output_images[0]['filename'], output_images[0]['subfolder'], 'output')
+                image = Image.open(io.BytesIO(image_data))
+                buffered = io.BytesIO()
+                image.save(buffered, format="PNG")
+                img_str = base64.b64encode(buffered.getvalue()).decode()
+                return jsonify({'image': img_str})
+            except Exception as e:
+                return jsonify({'error': f'Failed to process output image: {str(e)}'}), 500
 
     return jsonify({'error': 'Failed to generate image'}), 500
 
