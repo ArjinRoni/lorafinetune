@@ -214,7 +214,7 @@
   },
   "204": {
     "inputs": {
-      "prompt": "car",
+      "prompt": "bottle",
       "threshold": 0.5,
       "sam_model": [
         "205",
@@ -334,9 +334,9 @@
         "582",
         0
       ],
-      "interpolation_mode": "bicubic",
+      "interpolation_mode": "nearest",
       "image": [
-        "623",
+        "625",
         0
       ]
     },
@@ -644,7 +644,7 @@
     "inputs": {
       "resolution": 1024,
       "image": [
-        "204",
+        "625",
         0
       ]
     },
@@ -732,7 +732,7 @@
         0
       ],
       "image_composition": [
-        "623",
+        "625",
         0
       ],
       "clip_vision": [
@@ -785,7 +785,7 @@
   "582": {
     "inputs": {
       "image": [
-        "623",
+        "625",
         0
       ]
     },
@@ -1161,15 +1161,13 @@
       "title": "Save Image"
     }
   },
-  "623": {
+  "625": {
     "inputs": {
-      "image": "https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg",
-      "keep_alpha_channel": false,
-      "output_mode": false
+      "image": "sdasdjasldja....... base64 here"
     },
-    "class_type": "LoadImageFromUrl",
+    "class_type": "ETN_LoadImageBase64",
     "_meta": {
-      "title": "Load Image From URL"
+      "title": "Load Image (Base64)"
     }
   }
 }
