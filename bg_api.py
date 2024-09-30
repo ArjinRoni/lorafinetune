@@ -49,16 +49,18 @@ def replace_background():
             workflow = json.load(f)
     except FileNotFoundError:
         return jsonify({'error': 'Workflow file not found'}), 500
+    except json.JSONDecodeError as e:
+        return jsonify({'error': f'Invalid JSON in workflow file: {str(e)}'}), 500
 
-    # Update the prompts and base64 image data in the workflow
-    workflow['555']['inputs']['text'] = prompt_style
-    workflow['563']['inputs']['text'] = prompt_main
-    workflow['204']['inputs']['prompt'] = classification_token
-    workflow['625']['inputs']['image'] = image_base64  # Update node 625 with the provided base64 image data
-
-    # Generate a random seed
-    random_seed = random.randint(0, 2**32 - 1)
-    workflow['607']['inputs']['seed'] = random_seed
+    # Update the workflow with input data
+    try:
+        workflow['555']['inputs']['text'] = prompt_style
+        workflow['563']['inputs']['text'] = prompt_main
+        workflow['204']['inputs']['prompt'] = classification_token
+        workflow['625']['inputs']['image'] = image_base64
+        workflow['607']['inputs']['seed'] = random.randint(0, 2**32 - 1)
+    except KeyError as e:
+        return jsonify({'error': f'Missing key in workflow: {str(e)}'}), 500
 
     # Queue the prompt
     try:
