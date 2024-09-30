@@ -100,26 +100,40 @@ def replace_background():
 
     # After the while loop that waits for the image generation
     output_node = '637'  # Node containing the string input
-    if output_node in history[prompt_id]['inputs']:
-        base64_output = history[prompt_id]['inputs'][output_node]['text'][0]
-        # Log the result (truncate base64 for readability)
-        print(f"Background replacement completed successfully.")
-        print(f"Prompt style: {prompt_style}")
-        print(f"Prompt main: {prompt_main}")
-        print(f"Classification token: {classification_token}")
-        print(f"Input image base64 (truncated): {image_base64[:20]}...")
-        print(f"Output image base64 (truncated): {base64_output[:20]}...")
-        
-        return jsonify({
-            'success': True,
-            'image': base64_output
-        })
+    if prompt_id in history:
+        if 'outputs' in history[prompt_id]:
+            if output_node in history[prompt_id]['outputs']:
+                output_data = history[prompt_id]['outputs'][output_node]
+                if 'string' in output_data:
+                    base64_output = output_data['string']
+                    # Log the result (truncate base64 for readability)
+                    print(f"Background replacement completed successfully.")
+                    print(f"Prompt style: {prompt_style}")
+                    print(f"Prompt main: {prompt_main}")
+                    print(f"Classification token: {classification_token}")
+                    print(f"Input image base64 (truncated): {image_base64[:20]}...")
+                    print(f"Output image base64 (truncated): {base64_output[:20]}...")
+                    
+                    return jsonify({
+                        'success': True,
+                        'image': base64_output
+                    })
+                else:
+                    print(f"No 'string' key in output data for node {output_node}")
+            else:
+                print(f"Output node {output_node} not found in history outputs")
+        else:
+            print("No 'outputs' key in history for this prompt")
     else:
-        print(f"Output node {output_node} not found in history inputs")
+        print(f"Prompt {prompt_id} not found in history")
 
     # If we couldn't find the image data
     print("Failed to generate image. No output found in history.")
-    print(f"Available outputs: {history[prompt_id]['outputs'].keys()}")
+    print(f"Available history keys: {list(history.keys())}")
+    if prompt_id in history:
+        print(f"Available keys for this prompt: {list(history[prompt_id].keys())}")
+        if 'outputs' in history[prompt_id]:
+            print(f"Available outputs: {list(history[prompt_id]['outputs'].keys())}")
     return jsonify({
         'success': False,
         'error': 'Failed to generate image'
