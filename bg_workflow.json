@@ -336,7 +336,7 @@
       ],
       "interpolation_mode": "bicubic",
       "image": [
-        "621",
+        "623",
         0
       ]
     },
@@ -732,7 +732,7 @@
         0
       ],
       "image_composition": [
-        "621",
+        "623",
         0
       ],
       "clip_vision": [
@@ -785,7 +785,7 @@
   "582": {
     "inputs": {
       "image": [
-        "621",
+        "623",
         0
       ]
     },
@@ -1161,13 +1161,15 @@
       "title": "Save Image"
     }
   },
-  "621": {
+  "623": {
     "inputs": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Example.jpg/800px-Example.jpg"
+      "image": "https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg",
+      "keep_alpha_channel": false,
+      "output_mode": false
     },
-    "class_type": "Load Image From Url (mtb)",
+    "class_type": "LoadImageFromUrl",
     "_meta": {
-      "title": "Load Image From Url (mtb)"
+      "title": "Load Image From URL"
     }
   }
 }
