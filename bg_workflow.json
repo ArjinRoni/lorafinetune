@@ -568,7 +568,7 @@
   },
   "565": {
     "inputs": {
-      "strength": 0.35000000000000003,
+      "strength": 0.36,
       "conditioning": [
         "563",
         0
@@ -1148,19 +1148,6 @@
       "title": "Batch Images"
     }
   },
-  "619": {
-    "inputs": {
-      "filename_prefix": "api",
-      "images": [
-        "597",
-        0
-      ]
-    },
-    "class_type": "SaveImage",
-    "_meta": {
-      "title": "Save Image"
-    }
-  },
   "625": {
     "inputs": {
       "image": "sdasdjasldja....... base64 here"
@@ -1168,6 +1155,46 @@
     "class_type": "ETN_LoadImageBase64",
     "_meta": {
       "title": "Load Image (Base64)"
+    }
+  },
+  "627": {
+    "inputs": {
+      "image": [
+        "597",
+        0
+      ]
+    },
+    "class_type": "easy imageToBase64",
+    "_meta": {
+      "title": "Image To Base64"
+    }
+  },
+  "630": {
+    "inputs": {
+      "value": [
+        "627",
+        0
+      ]
+    },
+    "class_type": "String",
+    "_meta": {
+      "title": "String"
+    }
+  },
+  "632": {
+    "inputs": {
+      "root_dir": "output",
+      "file": "image",
+      "append": "append",
+      "insert": true,
+      "text": [
+        "627",
+        0
+      ]
+    },
+    "class_type": "SaveText|pysssss",
+    "_meta": {
+      "title": "Save Text 🐍"
     }
   }
 }
