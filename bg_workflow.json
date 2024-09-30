@@ -1,0 +1,1173 @@
+{
+  "4": {
+    "inputs": {
+      "text": "car, in Brazil, in the beach, road, cinematic, artistic, post-production, movie, 4k, accurate shadows,",
+      "clip": [
+        "82",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "5": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "82",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "samples": [
+        "19",
+        0
+      ],
+      "vae": [
+        "82",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "19": {
+    "inputs": {
+      "seed": 100361857014344,
+      "steps": 18,
+      "cfg": 1.7,
+      "sampler_name": "dpmpp_2m_sde",
+      "scheduler": "karras",
+      "denoise": 0.96,
+      "model": [
+        "37",
+        0
+      ],
+      "positive": [
+        "77",
+        0
+      ],
+      "negative": [
+        "77",
+        1
+      ],
+      "latent_image": [
+        "50",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "37": {
+    "inputs": {
+      "model_path": "IC-Light/iclight_sd15_fc.safetensors",
+      "model": [
+        "324",
+        0
+      ]
+    },
+    "class_type": "LoadAndApplyICLightUnet",
+    "_meta": {
+      "title": "Load And Apply IC-Light"
+    }
+  },
+  "50": {
+    "inputs": {
+      "pixels": [
+        "579",
+        0
+      ],
+      "vae": [
+        "82",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "53": {
+    "inputs": {
+      "width": [
+        "582",
+        0
+      ],
+      "height": [
+        "582",
+        1
+      ],
+      "interpolation": "nearest-exact",
+      "keep_proportion": false,
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "220",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize"
+    }
+  },
+  "76": {
+    "inputs": {
+      "images": [
+        "579",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "77": {
+    "inputs": {
+      "multiplier": 0.48,
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "5",
+        0
+      ],
+      "vae": [
+        "82",
+        2
+      ],
+      "foreground": [
+        "78",
+        0
+      ]
+    },
+    "class_type": "ICLightConditioning",
+    "_meta": {
+      "title": "IC-Light Conditioning"
+    }
+  },
+  "78": {
+    "inputs": {
+      "pixels": [
+        "579",
+        0
+      ],
+      "vae": [
+        "82",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "82": {
+    "inputs": {
+      "ckpt_name": "juggernaut15_reborn.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "85": {
+    "inputs": {
+      "text": "product photography, still life photography of a whiskey bottle, white backdrop",
+      "clip": [
+        "82",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "86": {
+    "inputs": {
+      "text": "nsfw",
+      "clip": [
+        "82",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "204": {
+    "inputs": {
+      "prompt": "car",
+      "threshold": 0.5,
+      "sam_model": [
+        "205",
+        0
+      ],
+      "grounding_dino_model": [
+        "206",
+        0
+      ],
+      "image": [
+        "268",
+        0
+      ]
+    },
+    "class_type": "GroundingDinoSAMSegment (segment anything)",
+    "_meta": {
+      "title": "GroundingDinoSAMSegment (segment anything)"
+    }
+  },
+  "205": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "Prefer GPU"
+    },
+    "class_type": "SAMLoader",
+    "_meta": {
+      "title": "SAMLoader (Impact)"
+    }
+  },
+  "206": {
+    "inputs": {
+      "model_name": "GroundingDINO_SwinT_OGC (694MB)"
+    },
+    "class_type": "GroundingDinoModelLoader (segment anything)",
+    "_meta": {
+      "title": "GroundingDinoModelLoader (segment anything)"
+    }
+  },
+  "207": {
+    "inputs": {
+      "images": [
+        "204",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "217": {
+    "inputs": {
+      "blend_percentage": 1,
+      "image_a": [
+        "580",
+        0
+      ],
+      "image_b": [
+        "204",
+        0
+      ],
+      "mask": [
+        "219",
+        0
+      ]
+    },
+    "class_type": "Image Blend by Mask",
+    "_meta": {
+      "title": "Image Blend by Mask"
+    }
+  },
+  "219": {
+    "inputs": {
+      "mask": [
+        "204",
+        1
+      ]
+    },
+    "class_type": "MaskToImage",
+    "_meta": {
+      "title": "Convert Mask to Image"
+    }
+  },
+  "220": {
+    "inputs": {
+      "image": "$220-0",
+      "images": [
+        "217",
+        0
+      ]
+    },
+    "class_type": "PreviewBridge",
+    "_meta": {
+      "title": "Preview Bridge (Image)"
+    }
+  },
+  "243": {
+    "inputs": {
+      "image": "$243-0",
+      "images": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "PreviewBridge",
+    "_meta": {
+      "title": "Preview Bridge (Image)"
+    }
+  },
+  "268": {
+    "inputs": {
+      "height": [
+        "582",
+        1
+      ],
+      "width": [
+        "582",
+        0
+      ],
+      "interpolation_mode": "bicubic",
+      "image": [
+        "621",
+        0
+      ]
+    },
+    "class_type": "JWImageResize",
+    "_meta": {
+      "title": "Image Resize"
+    }
+  },
+  "324": {
+    "inputs": {
+      "weight": 0.1,
+      "weight_type": "linear",
+      "combine_embeds": "concat",
+      "start_at": 0,
+      "end_at": 0.5,
+      "embeds_scaling": "K+V w/ C penalty",
+      "model": [
+        "325",
+        0
+      ],
+      "ipadapter": [
+        "325",
+        1
+      ],
+      "image": [
+        "557",
+        0
+      ]
+    },
+    "class_type": "IPAdapterAdvanced",
+    "_meta": {
+      "title": "IPAdapter Advanced"
+    }
+  },
+  "325": {
+    "inputs": {
+      "preset": "PLUS (high strength)",
+      "model": [
+        "82",
+        0
+      ]
+    },
+    "class_type": "IPAdapterUnifiedLoader",
+    "_meta": {
+      "title": "IPAdapter Unified Loader"
+    }
+  },
+  "328": {
+    "inputs": {
+      "invert": false,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "threshold": 204,
+      "per_batch": 16,
+      "images": [
+        "220",
+        0
+      ]
+    },
+    "class_type": "ColorToMask",
+    "_meta": {
+      "title": "Color To Mask"
+    }
+  },
+  "550": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter_sdxl.safetensors"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "IPAdapter Model Loader"
+    }
+  },
+  "551": {
+    "inputs": {
+      "clip_name": "SDXL/pytorch_model.bin"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "552": {
+    "inputs": {
+      "seed": 3223434,
+      "steps": 7,
+      "cfg": 1.5,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "553",
+        0
+      ],
+      "positive": [
+        "555",
+        0
+      ],
+      "negative": [
+        "556",
+        0
+      ],
+      "latent_image": [
+        "554",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "553": {
+    "inputs": {
+      "ckpt_name": "JugLightXL.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "554": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "555": {
+    "inputs": {
+      "text": "in Brazil, on the beach, cinematic, post-production, movie, 4k, luxury",
+      "clip": [
+        "553",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive)"
+    }
+  },
+  "556": {
+    "inputs": {
+      "text": "writing, lowres, bad quality, blurry, artifacts, inaccurate, white background, empty background",
+      "clip": [
+        "553",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative)"
+    }
+  },
+  "557": {
+    "inputs": {
+      "samples": [
+        "552",
+        0
+      ],
+      "vae": [
+        "553",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "561": {
+    "inputs": {
+      "images": [
+        "557",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "562": {
+    "inputs": {
+      "pixels": [
+        "268",
+        0
+      ],
+      "vae": [
+        "553",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "563": {
+    "inputs": {
+      "text": "car, on a Brazilian beach, people around, cinematic, post-production, movie, 4k, luxury, unreal engine 5, accurate shadows",
+      "clip": [
+        "553",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "564": {
+    "inputs": {
+      "text": "nsfw, bad quality, (((writing))), white background, empty background",
+      "clip": [
+        "553",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "565": {
+    "inputs": {
+      "strength": 0.35000000000000003,
+      "conditioning": [
+        "563",
+        0
+      ],
+      "control_net": [
+        "566",
+        0
+      ],
+      "image": [
+        "569",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply",
+    "_meta": {
+      "title": "Apply ControlNet"
+    }
+  },
+  "566": {
+    "inputs": {
+      "control_net_name": "DepthXLv10fp16.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "567": {
+    "inputs": {
+      "strength": 0.35000000000000003,
+      "conditioning": [
+        "565",
+        0
+      ],
+      "control_net": [
+        "568",
+        0
+      ],
+      "image": [
+        "570",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply",
+    "_meta": {
+      "title": "Apply ControlNet"
+    }
+  },
+  "568": {
+    "inputs": {
+      "control_net_name": "Sai_XL_sketch_128lora.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "569": {
+    "inputs": {
+      "ckpt_name": "depth_anything_vitl14.pth",
+      "resolution": 1024,
+      "image": [
+        "570",
+        0
+      ]
+    },
+    "class_type": "DepthAnythingPreprocessor",
+    "_meta": {
+      "title": "Depth Anything"
+    }
+  },
+  "570": {
+    "inputs": {
+      "resolution": 1024,
+      "image": [
+        "204",
+        0
+      ]
+    },
+    "class_type": "AnimeLineArtPreprocessor",
+    "_meta": {
+      "title": "Anime Lineart"
+    }
+  },
+  "571": {
+    "inputs": {
+      "images": [
+        "570",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "572": {
+    "inputs": {
+      "images": [
+        "569",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "574": {
+    "inputs": {
+      "samples": [
+        "607",
+        0
+      ],
+      "vae": [
+        "553",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "576": {
+    "inputs": {
+      "add_noise": "enable",
+      "noise_seed": 4,
+      "steps": 12,
+      "cfg": 2.7,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "start_at_step": 0,
+      "end_at_step": 10000,
+      "return_with_leftover_noise": "disable"
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "KSampler (Advanced)"
+    }
+  },
+  "577": {
+    "inputs": {
+      "weight_style": 0.65,
+      "weight_composition": 0.05,
+      "expand_style": false,
+      "combine_embeds": "average",
+      "start_at": 0.165,
+      "end_at": 0.9,
+      "embeds_scaling": "V only",
+      "model": [
+        "553",
+        0
+      ],
+      "ipadapter": [
+        "550",
+        0
+      ],
+      "image_style": [
+        "617",
+        0
+      ],
+      "image_composition": [
+        "621",
+        0
+      ],
+      "clip_vision": [
+        "551",
+        0
+      ]
+    },
+    "class_type": "IPAdapterStyleComposition",
+    "_meta": {
+      "title": "IPAdapter Style & Composition SDXL"
+    }
+  },
+  "579": {
+    "inputs": {
+      "width": [
+        "582",
+        0
+      ],
+      "height": [
+        "582",
+        1
+      ],
+      "interpolation": "nearest-exact",
+      "keep_proportion": false,
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "243",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize"
+    }
+  },
+  "580": {
+    "inputs": {
+      "image": "$580-0",
+      "images": [
+        "574",
+        0
+      ]
+    },
+    "class_type": "PreviewBridge",
+    "_meta": {
+      "title": "Preview Bridge (Image)"
+    }
+  },
+  "582": {
+    "inputs": {
+      "image": [
+        "621",
+        0
+      ]
+    },
+    "class_type": "CM_NearestSDXLResolution",
+    "_meta": {
+      "title": "NearestSDXLResolution"
+    }
+  },
+  "583": {
+    "inputs": {
+      "image": [
+        "268",
+        0
+      ]
+    },
+    "class_type": "SplitImageWithAlpha",
+    "_meta": {
+      "title": "Split Image with Alpha"
+    }
+  },
+  "584": {
+    "inputs": {
+      "image": [
+        "583",
+        0
+      ]
+    },
+    "class_type": "ImageInvert",
+    "_meta": {
+      "title": "Invert Image"
+    }
+  },
+  "585": {
+    "inputs": {
+      "radius": 5,
+      "images": [
+        "583",
+        0
+      ]
+    },
+    "class_type": "ImageGaussianBlur",
+    "_meta": {
+      "title": "Image Gaussian Blur"
+    }
+  },
+  "586": {
+    "inputs": {
+      "mode": "add",
+      "blend_percentage": 0.4,
+      "image_a": [
+        "584",
+        0
+      ],
+      "image_b": [
+        "585",
+        0
+      ]
+    },
+    "class_type": "Image Blending Mode",
+    "_meta": {
+      "title": "Image Blending Mode"
+    }
+  },
+  "587": {
+    "inputs": {
+      "image": [
+        "586",
+        0
+      ]
+    },
+    "class_type": "ImageInvert",
+    "_meta": {
+      "title": "Invert Image"
+    }
+  },
+  "588": {
+    "inputs": {
+      "mode": "add",
+      "blend_percentage": 1,
+      "image_a": [
+        "585",
+        0
+      ],
+      "image_b": [
+        "587",
+        0
+      ]
+    },
+    "class_type": "Image Blending Mode",
+    "_meta": {
+      "title": "Image Blending Mode"
+    }
+  },
+  "589": {
+    "inputs": {
+      "image": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "SplitImageWithAlpha",
+    "_meta": {
+      "title": "Split Image with Alpha"
+    }
+  },
+  "590": {
+    "inputs": {
+      "image": [
+        "589",
+        0
+      ]
+    },
+    "class_type": "ImageInvert",
+    "_meta": {
+      "title": "Invert Image"
+    }
+  },
+  "591": {
+    "inputs": {
+      "radius": 5,
+      "images": [
+        "589",
+        0
+      ]
+    },
+    "class_type": "ImageGaussianBlur",
+    "_meta": {
+      "title": "Image Gaussian Blur"
+    }
+  },
+  "592": {
+    "inputs": {
+      "mode": "add",
+      "blend_percentage": 0.52,
+      "image_a": [
+        "590",
+        0
+      ],
+      "image_b": [
+        "591",
+        0
+      ]
+    },
+    "class_type": "Image Blending Mode",
+    "_meta": {
+      "title": "Image Blending Mode"
+    }
+  },
+  "593": {
+    "inputs": {
+      "image": [
+        "592",
+        0
+      ]
+    },
+    "class_type": "ImageInvert",
+    "_meta": {
+      "title": "Invert Image"
+    }
+  },
+  "594": {
+    "inputs": {
+      "mode": "add",
+      "blend_percentage": 1,
+      "image_a": [
+        "591",
+        0
+      ],
+      "image_b": [
+        "593",
+        0
+      ]
+    },
+    "class_type": "Image Blending Mode",
+    "_meta": {
+      "title": "Image Blending Mode"
+    }
+  },
+  "595": {
+    "inputs": {
+      "blend_percentage": 1,
+      "image_a": [
+        "594",
+        0
+      ],
+      "image_b": [
+        "588",
+        0
+      ],
+      "mask": [
+        "599",
+        0
+      ]
+    },
+    "class_type": "Image Blend by Mask",
+    "_meta": {
+      "title": "Image Blend by Mask"
+    }
+  },
+  "596": {
+    "inputs": {
+      "mode": "add",
+      "blend_percentage": 0.64,
+      "image_a": [
+        "591",
+        0
+      ],
+      "image_b": [
+        "595",
+        0
+      ]
+    },
+    "class_type": "Image Blending Mode",
+    "_meta": {
+      "title": "Image Blending Mode"
+    }
+  },
+  "597": {
+    "inputs": {
+      "black_level": 80,
+      "mid_level": 1,
+      "white_level": 180,
+      "image": [
+        "596",
+        0
+      ]
+    },
+    "class_type": "Image Levels Adjustment",
+    "_meta": {
+      "title": "Image Levels Adjustment"
+    }
+  },
+  "598": {
+    "inputs": {
+      "expand": -5,
+      "tapered_corners": true,
+      "mask": [
+        "613",
+        1
+      ]
+    },
+    "class_type": "GrowMask",
+    "_meta": {
+      "title": "GrowMask"
+    }
+  },
+  "599": {
+    "inputs": {
+      "mask": [
+        "598",
+        0
+      ]
+    },
+    "class_type": "MaskToImage",
+    "_meta": {
+      "title": "Convert Mask to Image"
+    }
+  },
+  "602": {
+    "inputs": {
+      "images": [
+        "597",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "607": {
+    "inputs": {
+      "seed": 1,
+      "steps": 15,
+      "cfg": 2,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "577",
+        0
+      ],
+      "positive": [
+        "567",
+        0
+      ],
+      "negative": [
+        "564",
+        0
+      ],
+      "latent_image": [
+        "615",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "609": {
+    "inputs": {
+      "width": [
+        "582",
+        0
+      ],
+      "height": [
+        "582",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "613": {
+    "inputs": {
+      "rem_mode": "RMBG-1.4",
+      "image_output": "Preview",
+      "save_prefix": "ComfyUI",
+      "torchscript_jit": false,
+      "images": [
+        "268",
+        0
+      ]
+    },
+    "class_type": "easy imageRemBg",
+    "_meta": {
+      "title": "Image Remove Bg"
+    }
+  },
+  "615": {
+    "inputs": {
+      "multiplier": 0.5,
+      "samples": [
+        "562",
+        0
+      ]
+    },
+    "class_type": "LatentMultiply",
+    "_meta": {
+      "title": "LatentMultiply"
+    }
+  },
+  "617": {
+    "inputs": {
+      "image1": [
+        "557",
+        0
+      ],
+      "image2": [
+        "268",
+        0
+      ]
+    },
+    "class_type": "ImageBatch",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "619": {
+    "inputs": {
+      "filename_prefix": "api",
+      "images": [
+        "597",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "621": {
+    "inputs": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Example.jpg/800px-Example.jpg"
+    },
+    "class_type": "Load Image From Url (mtb)",
+    "_meta": {
+      "title": "Load Image From Url (mtb)"
+    }
+  }
+}
