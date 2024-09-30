@@ -5,6 +5,8 @@ import base64
 import io
 from PIL import Image
 import random
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__)
 
@@ -50,9 +52,10 @@ def replace_background():
     workflow['607']['inputs']['seed'] = random_seed
 
     # Handle image input
-    if image_url:
-        response = requests.get(image_url)
-        if response.status_code == 200:
+    if url:
+        try:
+            response = requests.get(url, verify=False)  # Disable SSL verification
+            response.raise_for_status()  # Raise an exception for bad status codes
             image_data = response.content
             image_name = 'input_image.png'
             upload_result = upload_image(image_data, image_name)
@@ -60,8 +63,8 @@ def replace_background():
                 workflow['156']['inputs']['image'] = upload_result['name']
             else:
                 return jsonify({'error': 'Failed to upload image'}), 400
-        else:
-            return jsonify({'error': 'Failed to download image'}), 400
+        except requests.exceptions.RequestException as e:
+            return jsonify({'error': f'Failed to download image: {str(e)}'}), 400
 
     # Queue the prompt
     result = queue_prompt(workflow)
@@ -93,4 +96,4 @@ def replace_background():
     return jsonify({'error': 'Failed to generate image'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)
