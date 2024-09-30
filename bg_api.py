@@ -74,18 +74,27 @@ def replace_background():
 
     prompt_id = result['prompt_id']
 
+    print(f"Queued prompt with ID: {prompt_id}")
+
     # Wait for the image to be generated (with timeout)
     timeout = 300  # 5 minutes
     start_time = time.time()
     while True:
         if time.time() - start_time > timeout:
+            print("Image generation timed out")
             return jsonify({'error': 'Image generation timed out'}), 504
         try:
             response = requests.get(f"{COMFY_URL}/history/{prompt_id}", timeout=10)
             history = response.json()
-            if prompt_id in history and len(history[prompt_id]['outputs']) > 0:
-                break
+            print(f"Checking history. Status: {response.status_code}")
+            if prompt_id in history:
+                print(f"Prompt found in history. Outputs: {list(history[prompt_id]['outputs'].keys())}")
+                if len(history[prompt_id]['outputs']) > 0:
+                    break
+            else:
+                print(f"Prompt {prompt_id} not found in history")
         except requests.RequestException as e:
+            print(f"Error checking history: {str(e)}")
             return jsonify({'error': f'Failed to check history: {str(e)}'}), 500
         time.sleep(1)
 
@@ -93,6 +102,7 @@ def replace_background():
     output_node = '636'  # Node containing the base64 output
     if output_node in history[prompt_id]['outputs']:
         output_data = history[prompt_id]['outputs'][output_node]
+        print(f"Output data for node {output_node}: {output_data.keys()}")
         if 'string' in output_data:
             base64_output = output_data['string']
             
@@ -108,9 +118,14 @@ def replace_background():
                 'success': True,
                 'image': base64_output
             })
+        else:
+            print(f"No 'string' key in output data for node {output_node}")
+    else:
+        print(f"Output node {output_node} not found in history outputs")
 
     # If we couldn't find the image data
     print("Failed to generate image. No output found in history.")
+    print(f"Available outputs: {history[prompt_id]['outputs'].keys()}")
     return jsonify({
         'success': False,
         'error': 'Failed to generate image'
