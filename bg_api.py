@@ -38,10 +38,10 @@ def replace_background():
     prompt_style = data.get('prompt_style', '')
     prompt_main = data.get('prompt_main', '')
     classification_token = data.get('classification_token', '')
-    url = data.get('url', '')
+    image_base64 = data.get('imageBase64', '')
 
-    if not url:
-        return jsonify({'error': 'URL is required'}), 400
+    if not image_base64:
+        return jsonify({'error': 'Image base64 data is required'}), 400
 
     # Load the workflow
     try:
@@ -50,11 +50,11 @@ def replace_background():
     except FileNotFoundError:
         return jsonify({'error': 'Workflow file not found'}), 500
 
-    # Update the prompts and URL in the workflow
+    # Update the prompts and base64 image data in the workflow
     workflow['555']['inputs']['text'] = prompt_style
     workflow['563']['inputs']['text'] = prompt_main
     workflow['204']['inputs']['prompt'] = classification_token
-    workflow['623']['inputs']['image'] = url  # Update node 623 with the provided URL
+    workflow['625']['inputs']['image'] = image_base64  # Update node 625 with the provided base64 image data
 
     # Generate a random seed
     random_seed = random.randint(0, 2**32 - 1)
