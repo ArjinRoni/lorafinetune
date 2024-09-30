@@ -86,20 +86,13 @@ def replace_background():
             return jsonify({'error': f'Failed to check history: {str(e)}'}), 500
         time.sleep(1)
 
-    # Get the output image
-    output_node = '619'  # SaveImage node
+    # Get the output base64 string
+    output_node = '630'  # String node containing the base64 output
     if output_node in history[prompt_id]['outputs']:
-        output_images = history[prompt_id]['outputs'][output_node]['images']
-        if output_images:
-            try:
-                image_data = get_image(output_images[0]['filename'], output_images[0]['subfolder'], 'output')
-                image = Image.open(io.BytesIO(image_data))
-                buffered = io.BytesIO()
-                image.save(buffered, format="PNG")
-                img_str = base64.b64encode(buffered.getvalue()).decode()
-                return jsonify({'image': img_str})
-            except Exception as e:
-                return jsonify({'error': f'Failed to process output image: {str(e)}'}), 500
+        output_data = history[prompt_id]['outputs'][output_node]
+        if 'string' in output_data:
+            base64_output = output_data['string']
+            return jsonify({'image': base64_output})
 
     return jsonify({'error': 'Failed to generate image'}), 500
 
