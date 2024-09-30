@@ -7,6 +7,8 @@ from PIL import Image
 import random
 import urllib3
 import time
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__)
