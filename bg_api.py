@@ -52,6 +52,9 @@ def replace_background():
     except json.JSONDecodeError as e:
         return jsonify({'error': f'Invalid JSON in workflow file: {str(e)}'}), 500
 
+    # Generate a seed
+    seed = random.randint(0, 2**32 - 1)
+
     # Update the workflow with input data
     try:
         workflow['555']['inputs']['text'] = prompt_style
@@ -59,7 +62,8 @@ def replace_background():
         workflow['563']['inputs']['text'] = prompt_main
         workflow['204']['inputs']['prompt'] = classification_token
         workflow['625']['inputs']['image'] = image_base64
-        workflow['607']['inputs']['seed'] = random.randint(0, 2**32 - 1)
+        workflow['607']['inputs']['seed'] = seed
+        workflow['635']['inputs']['filename_prefix'] = f"BackgroundReplacer_{seed}"
     except KeyError as e:
         return jsonify({'error': f'Missing key in workflow: {str(e)}'}), 500
 
@@ -87,57 +91,46 @@ def replace_background():
             response = requests.get(f"{COMFY_URL}/history/{prompt_id}", timeout=10)
             history = response.json()
             print(f"Checking history. Status: {response.status_code}")
-            if prompt_id in history:
-                print(f"Prompt found in history. Outputs: {list(history[prompt_id]['outputs'].keys())}")
-                if len(history[prompt_id]['outputs']) > 0:
-                    break
-            else:
-                print(f"Prompt {prompt_id} not found in history")
+            if prompt_id in history and len(history[prompt_id]['outputs']) > 0:
+                print("Image generation completed")
+                break
         except requests.RequestException as e:
             print(f"Error checking history: {str(e)}")
             return jsonify({'error': f'Failed to check history: {str(e)}'}), 500
         time.sleep(1)
 
-    # After the while loop that waits for the image generation
-    output_node = '637'  # Node containing the string input
-    if prompt_id in history:
-        if 'outputs' in history[prompt_id]:
-            if output_node in history[prompt_id]['outputs']:
-                output_data = history[prompt_id]['outputs'][output_node]
-                if 'string' in output_data:
-                    base64_output = output_data['string']
-                    # Log the result (truncate base64 for readability)
-                    print(f"Background replacement completed successfully.")
-                    print(f"Prompt style: {prompt_style}")
-                    print(f"Prompt main: {prompt_main}")
-                    print(f"Classification token: {classification_token}")
-                    print(f"Input image base64 (truncated): {image_base64[:20]}...")
-                    print(f"Output image base64 (truncated): {base64_output[:20]}...")
-                    
-                    return jsonify({
-                        'success': True,
-                        'image': base64_output
-                    })
-                else:
-                    print(f"No 'string' key in output data for node {output_node}")
-            else:
-                print(f"Output node {output_node} not found in history outputs")
-        else:
-            print("No 'outputs' key in history for this prompt")
-    else:
-        print(f"Prompt {prompt_id} not found in history")
+    # Find the generated image
+    output_dir = os.path.join(os.path.dirname(__file__), 'output')
+    generated_image = None
+    for filename in os.listdir(output_dir):
+        if filename.startswith(f"BackgroundReplacer_{seed}") and filename.endswith(".png"):
+            generated_image = os.path.join(output_dir, filename)
+            break
 
-    # If we couldn't find the image data
-    print("Failed to generate image. No output found in history.")
-    print(f"Available history keys: {list(history.keys())}")
-    if prompt_id in history:
-        print(f"Available keys for this prompt: {list(history[prompt_id].keys())}")
-        if 'outputs' in history[prompt_id]:
-            print(f"Available outputs: {list(history[prompt_id]['outputs'].keys())}")
+    if not generated_image:
+        return jsonify({'error': 'Generated image not found'}), 500
+
+    # Convert the image to base64
+    try:
+        with Image.open(generated_image) as img:
+            buffered = io.BytesIO()
+            img.save(buffered, format="PNG")
+            base64_output = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    except Exception as e:
+        return jsonify({'error': f'Failed to process generated image: {str(e)}'}), 500
+
+    # Log the result (truncate base64 for readability)
+    print(f"Background replacement completed successfully.")
+    print(f"Prompt style: {prompt_style}")
+    print(f"Prompt main: {prompt_main}")
+    print(f"Classification token: {classification_token}")
+    print(f"Input image base64 (truncated): {image_base64[:20]}...")
+    print(f"Output image base64 (truncated): {base64_output[:20]}...")
+
     return jsonify({
-        'success': False,
-        'error': 'Failed to generate image'
-    }), 500
+        'success': True,
+        'image': base64_output
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
