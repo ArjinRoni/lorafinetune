@@ -1,0 +1,351 @@
+{
+    "4": {
+      "inputs": {
+        "ckpt_name": "juggernaut15_reborn.safetensors"
+      },
+      "class_type": "CheckpointLoaderSimple",
+      "_meta": {
+        "title": "Load Checkpoint"
+      }
+    },
+    "7": {
+      "inputs": {
+        "text": "(worst quality, low quality, normal quality:2) embedding:JuggernautNegative-neg, ",
+        "clip": [
+          "14",
+          1
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt)"
+      }
+    },
+    "13": {
+      "inputs": {
+        "switch_1": "On",
+        "lora_name_1": "moredetails.safetensors",
+        "model_weight_1": 1,
+        "clip_weight_1": 1,
+        "switch_2": "Off",
+        "lora_name_2": "None",
+        "model_weight_2": 1,
+        "clip_weight_2": -0.32,
+        "switch_3": "Off",
+        "lora_name_3": "None",
+        "model_weight_3": 1,
+        "clip_weight_3": 1
+      },
+      "class_type": "CR LoRA Stack",
+      "_meta": {
+        "title": "💊 CR LoRA Stack"
+      }
+    },
+    "14": {
+      "inputs": {
+        "model": [
+          "4",
+          0
+        ],
+        "clip": [
+          "4",
+          1
+        ],
+        "lora_stack": [
+          "13",
+          0
+        ]
+      },
+      "class_type": "CR Apply LoRA Stack",
+      "_meta": {
+        "title": "💊 CR Apply LoRA Stack"
+      }
+    },
+    "19": {
+      "inputs": {
+        "strength": 0.9,
+        "start_percent": 0,
+        "end_percent": 0.9,
+        "positive": [
+          "21",
+          3
+        ],
+        "negative": [
+          "21",
+          4
+        ],
+        "control_net": [
+          "20",
+          0
+        ],
+        "image": [
+          "84",
+          0
+        ]
+      },
+      "class_type": "ControlNetApplyAdvanced",
+      "_meta": {
+        "title": "Apply ControlNet (Advanced)"
+      }
+    },
+    "20": {
+      "inputs": {
+        "control_net_name": "control_v11f1e_sd15_tile.safetensors"
+      },
+      "class_type": "ControlNetLoader",
+      "_meta": {
+        "title": "Load ControlNet Model"
+      }
+    },
+    "21": {
+      "inputs": {
+        "basic_pipe": [
+          "24",
+          0
+        ]
+      },
+      "class_type": "FromBasicPipe",
+      "_meta": {
+        "title": "FromBasicPipe"
+      }
+    },
+    "23": {
+      "inputs": {
+        "model": [
+          "21",
+          0
+        ],
+        "clip": [
+          "21",
+          1
+        ],
+        "vae": [
+          "21",
+          2
+        ],
+        "positive": [
+          "19",
+          0
+        ],
+        "negative": [
+          "21",
+          4
+        ]
+      },
+      "class_type": "ToBasicPipe",
+      "_meta": {
+        "title": "ToBasicPipe"
+      }
+    },
+    "24": {
+      "inputs": {
+        "model": [
+          "14",
+          0
+        ],
+        "clip": [
+          "14",
+          1
+        ],
+        "vae": [
+          "4",
+          2
+        ],
+        "positive": [
+          "83",
+          0
+        ],
+        "negative": [
+          "7",
+          0
+        ]
+      },
+      "class_type": "ToBasicPipe",
+      "_meta": {
+        "title": "ToBasicPipe"
+      }
+    },
+    "36": {
+      "inputs": {
+        "basic_pipe": [
+          "23",
+          0
+        ]
+      },
+      "class_type": "FromBasicPipe",
+      "_meta": {
+        "title": "FromBasicPipe"
+      }
+    },
+    "44": {
+      "inputs": {
+        "method": "MultiDiffusion",
+        "tile_width": 768,
+        "tile_height": 768,
+        "tile_overlap": 64,
+        "tile_batch_size": 8,
+        "model": [
+          "36",
+          0
+        ]
+      },
+      "class_type": "TiledDiffusion",
+      "_meta": {
+        "title": "Tiled Diffusion"
+      }
+    },
+    "45": {
+      "inputs": {
+        "seed": 686588528079569,
+        "steps": 7,
+        "cfg": 1.6,
+        "sampler_name": "dpmpp_2m",
+        "scheduler": "karras",
+        "denoise": 0.5,
+        "model": [
+          "55",
+          0
+        ],
+        "positive": [
+          "36",
+          3
+        ],
+        "negative": [
+          "36",
+          4
+        ],
+        "latent_image": [
+          "46",
+          0
+        ]
+      },
+      "class_type": "KSampler",
+      "_meta": {
+        "title": "KSampler"
+      }
+    },
+    "46": {
+      "inputs": {
+        "tile_size": 768,
+        "pixels": [
+          "54",
+          0
+        ],
+        "vae": [
+          "36",
+          2
+        ]
+      },
+      "class_type": "VAEEncodeTiled",
+      "_meta": {
+        "title": "VAE Encode (Tiled)"
+      }
+    },
+    "48": {
+      "inputs": {
+        "tile_size": 768,
+        "samples": [
+          "45",
+          0
+        ],
+        "vae": [
+          "36",
+          2
+        ]
+      },
+      "class_type": "VAEDecodeTiled",
+      "_meta": {
+        "title": "VAE Decode (Tiled)"
+      }
+    },
+    "52": {
+      "inputs": {
+        "upscale_model": [
+          "53",
+          0
+        ],
+        "image": [
+          "84",
+          0
+        ]
+      },
+      "class_type": "ImageUpscaleWithModel",
+      "_meta": {
+        "title": "Upscale Image (using Model)"
+      }
+    },
+    "53": {
+      "inputs": {
+        "model_name": "4xNomoOG.pth"
+      },
+      "class_type": "UpscaleModelLoader",
+      "_meta": {
+        "title": "Load Upscale Model"
+      }
+    },
+    "54": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 0.45,
+        "image": [
+          "52",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "55": {
+      "inputs": {
+        "b1": 1.3,
+        "b2": 1.4000000000000001,
+        "s1": 0.9,
+        "s2": 0.2,
+        "model": [
+          "44",
+          0
+        ]
+      },
+      "class_type": "FreeU_V2",
+      "_meta": {
+        "title": "FreeU_V2"
+      }
+    },
+    "83": {
+      "inputs": {
+        "text": "good perspective, natural, photoshoot, correct perspective masterpiece, best quality, highres",
+        "clip": [
+          "14",
+          1
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt)"
+      }
+    },
+    "84": {
+      "inputs": {
+        "image": "asdasda...inout base64 here"
+      },
+      "class_type": "ETN_LoadImageBase64",
+      "_meta": {
+        "title": "Load Image (Base64)"
+      }
+    },
+    "86": {
+      "inputs": {
+        "filename_prefix": "BackgroundReplacerUPSCALEDplusseed",
+        "images": [
+          "48",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "Save Image"
+      }
+    }
+  }
