@@ -44,7 +44,7 @@
   "19": {
     "inputs": {
       "seed": 100361857014344,
-      "steps": 18,
+      "steps": 19,
       "cfg": 1.7,
       "sampler_name": "dpmpp_2m_sde",
       "scheduler": "karras",
@@ -138,7 +138,7 @@
   },
   "77": {
     "inputs": {
-      "multiplier": 0.48,
+      "multiplier": 0.47800000000000004,
       "positive": [
         "4",
         0
@@ -423,7 +423,7 @@
   "552": {
     "inputs": {
       "seed": 3223434,
-      "steps": 7,
+      "steps": 6,
       "cfg": 1.5,
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
@@ -485,7 +485,7 @@
   },
   "556": {
     "inputs": {
-      "text": "writing, lowres, bad quality, blurry, artifacts, inaccurate, white background, empty background",
+      "text": "writing, lowres, bad quality, blurry, artifacts, inaccurate, white background, empty background, ",
       "clip": [
         "553",
         1
@@ -644,7 +644,7 @@
     "inputs": {
       "resolution": 1024,
       "image": [
-        "268",
+        "204",
         0
       ]
     },
@@ -712,12 +712,12 @@
   },
   "577": {
     "inputs": {
-      "weight_style": 0.65,
-      "weight_composition": 0.2,
+      "weight_style": 0.55,
+      "weight_composition": 0.1,
       "expand_style": false,
       "combine_embeds": "average",
-      "start_at": 0.165,
-      "end_at": 0.9,
+      "start_at": 0.2,
+      "end_at": 0.8,
       "embeds_scaling": "V only",
       "model": [
         "553",
