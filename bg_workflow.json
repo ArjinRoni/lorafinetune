@@ -1,7 +1,7 @@
 {
   "4": {
     "inputs": {
-      "text": "car, in Brazil, in the beach, road, cinematic, artistic, post-production, movie, 4k, accurate shadows,",
+      "text": "kitchenware on a stylish kitchen counter, in a modern kitchen, professional photoshoot, product photography, aesthetic, 4k, high resolution, advertisement",
       "clip": [
         "82",
         1
@@ -44,11 +44,11 @@
   "19": {
     "inputs": {
       "seed": 100361857014344,
-      "steps": 19,
+      "steps": 10,
       "cfg": 1.7,
       "sampler_name": "dpmpp_2m_sde",
       "scheduler": "karras",
-      "denoise": 0.99,
+      "denoise": 1,
       "model": [
         "37",
         0
@@ -138,7 +138,7 @@
   },
   "77": {
     "inputs": {
-      "multiplier": 0.47800000000000004,
+      "multiplier": 0.4,
       "positive": [
         "4",
         0
@@ -214,7 +214,7 @@
   },
   "204": {
     "inputs": {
-      "prompt": "bottle",
+      "prompt": "kitchenware",
       "threshold": 0.5,
       "sam_model": [
         "205",
@@ -273,7 +273,7 @@
         0
       ],
       "image_b": [
-        "204",
+        "613",
         0
       ],
       "mask": [
@@ -289,7 +289,7 @@
   "219": {
     "inputs": {
       "mask": [
-        "204",
+        "613",
         1
       ]
     },
@@ -303,6 +303,19 @@
       "image": "$220-0",
       "images": [
         "217",
+        0
+      ]
+    },
+    "class_type": "PreviewBridge",
+    "_meta": {
+      "title": "Preview Bridge (Image)"
+    }
+  },
+  "225": {
+    "inputs": {
+      "image": "$225-0",
+      "images": [
+        "7",
         0
       ]
     },
@@ -347,7 +360,7 @@
   },
   "324": {
     "inputs": {
-      "weight": 0.1,
+      "weight": 0.2,
       "weight_type": "linear",
       "combine_embeds": "concat",
       "start_at": 0,
@@ -422,10 +435,10 @@
   },
   "552": {
     "inputs": {
-      "seed": 3223434,
-      "steps": 6,
+      "seed": 3223439,
+      "steps": 10,
       "cfg": 1.5,
-      "sampler_name": "dpmpp_2m",
+      "sampler_name": "euler_ancestral",
       "scheduler": "karras",
       "denoise": 1,
       "model": [
@@ -472,7 +485,7 @@
   },
   "555": {
     "inputs": {
-      "text": "in Brazil, on the beach, cinematic, post-production, movie, 4k, luxury",
+      "text": "modern kitchen, high quality, hd, lifestyle, advertisement.",
       "clip": [
         "553",
         1
@@ -542,7 +555,7 @@
   },
   "563": {
     "inputs": {
-      "text": "car, on a Brazilian beach, people around, cinematic, post-production, movie, 4k, luxury, unreal engine 5, accurate shadows",
+      "text": "kitchenware on a stylish kitchen counter, in a modern kitchen, professional photoshoot, product photography, aesthetic, 4k, high resolution, advertisement, proportionate.",
       "clip": [
         "553",
         1
@@ -568,7 +581,7 @@
   },
   "565": {
     "inputs": {
-      "strength": 0.36,
+      "strength": 0.33,
       "conditioning": [
         "563",
         0
@@ -598,7 +611,7 @@
   },
   "567": {
     "inputs": {
-      "strength": 0.35000000000000003,
+      "strength": 0.4,
       "conditioning": [
         "565",
         0
@@ -644,7 +657,7 @@
     "inputs": {
       "resolution": 1024,
       "image": [
-        "204",
+        "613",
         0
       ]
     },
@@ -712,11 +725,11 @@
   },
   "577": {
     "inputs": {
-      "weight_style": 0.55,
-      "weight_composition": 0.1,
+      "weight_style": 0.45,
+      "weight_composition": 0.15,
       "expand_style": false,
       "combine_embeds": "average",
-      "start_at": 0.2,
+      "start_at": 0,
       "end_at": 0.8,
       "embeds_scaling": "V only",
       "model": [
@@ -728,7 +741,7 @@
         0
       ],
       "image_style": [
-        "617",
+        "557",
         0
       ],
       "image_composition": [
@@ -1061,7 +1074,7 @@
       "seed": 1,
       "steps": 12,
       "cfg": 2,
-      "sampler_name": "dpmpp_2m",
+      "sampler_name": "euler_ancestral",
       "scheduler": "normal",
       "denoise": 1,
       "model": [
@@ -1121,7 +1134,7 @@
   },
   "615": {
     "inputs": {
-      "multiplier": 0.5,
+      "multiplier": 0.3,
       "samples": [
         "562",
         0
@@ -1150,7 +1163,7 @@
   },
   "625": {
     "inputs": {
-      "image": ".... input base64 here"
+      "image": "asdasda...inout base64 here"
     },
     "class_type": "ETN_LoadImageBase64",
     "_meta": {
