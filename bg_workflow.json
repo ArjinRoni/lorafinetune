@@ -644,7 +644,7 @@
     "inputs": {
       "resolution": 1024,
       "image": [
-        "625",
+        "268",
         0
       ]
     },
@@ -732,7 +732,7 @@
         0
       ],
       "image_composition": [
-        "625",
+        "268",
         0
       ],
       "clip_vision": [
