@@ -1059,9 +1059,9 @@
   "607": {
     "inputs": {
       "seed": 1,
-      "steps": 15,
+      "steps": 12,
       "cfg": 2,
-      "sampler_name": "euler_ancestral",
+      "sampler_name": "dpmpp_2m",
       "scheduler": "normal",
       "denoise": 1,
       "model": [
