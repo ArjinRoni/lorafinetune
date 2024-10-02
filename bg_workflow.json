@@ -44,7 +44,7 @@
   "19": {
     "inputs": {
       "seed": 100361857014344,
-      "steps": 10,
+      "steps": 11,
       "cfg": 1.7,
       "sampler_name": "dpmpp_2m_sde",
       "scheduler": "karras",
@@ -138,7 +138,7 @@
   },
   "77": {
     "inputs": {
-      "multiplier": 0.4,
+      "multiplier": 0.35,
       "positive": [
         "4",
         0
